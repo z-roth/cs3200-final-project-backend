@@ -6,7 +6,7 @@ This is the back end repository for my final project.
 
 To use the front-end, this back-end must be running first.
 
-Firstly, make sure you have Node installed and added to PATH. You can install Node at https://nodejs.org/en/download/. I am using Node version 14.18.3 to develop this project.
+Firstly, make sure you have Node installed and added to PATH. You can install Node at https://nodejs.org/en/download/. I am using Node version `16.15.1` to develop this project. That is the LTS option on the downloads page.
 
 Additionally, the database must also be running on your computer. Please load in the data from the database dump. The password for the connection is set to "password" - you can change this by changing that line marked in `index.js`. Same for root as user.
 
