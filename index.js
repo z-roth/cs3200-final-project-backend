@@ -203,13 +203,25 @@ app.put("/edit-class", (req, res) => {
 });
 
 // Update homework.
-app.put("/edit-homework");
+app.put("/edit-homework", (req, res) => {
+  const hwId = req.body.hwId;
+  const name = req.body.name;
+  const description = req.body.description;
+  const dueDate = req.body.dueDate;
+  const dueTime = req.body.dueTime;
 
-// Update goal.
-app.put("/edit-goal");
-
-// Update exam.
-app.put("/edit-exam");
+  db.query(
+    "UPDATE homework SET homework.name = ?, homework.description = ?, homework.dueDate = ?, homework.dueTime = ? WHERE homework.hwId = ?",
+    [name, description, dueDate, dueTime, hwId],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 // Update status of a homework assignment.
 app.put("/update-check", (req, res) => {
@@ -236,7 +248,6 @@ app.put("/update-check", (req, res) => {
 app.delete("/delete-class", (req, res) => {
   const email = req.query.email;
   const code = req.query.code;
-  console.log(email, code);
   db.query(
     "DELETE FROM class WHERE class.user = ? AND class.code = ?",
     [email, code],
@@ -263,10 +274,40 @@ app.delete("/delete-homework", (req, res) => {
 });
 
 // Delete a goal from the database.
-app.delete("/delete-goal");
+app.delete("/delete-goal", (req, res) => {
+  const user = req.query.user;
+  const name = req.query.name;
+  db.query(
+    "DELETE FROM goal WHERE user = ? AND name = ?",
+    [user, name],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 // Delete an exam from the database.
-app.delete("/delete-exam");
+app.delete("/delete-exam", (req, res) => {
+  const user = req.query.user;
+  const course = req.query.course;
+  const name = req.query.name;
+  const date = req.query.date;
+  db.query(
+    "DELETE FROM exam WHERE exam.user = ? AND exam.class = ? AND exam.examName = ? AND exam.examDate =?",
+    [user, course, name, date],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
 
 app.get("/", function (req, res) {
   res.send("Test");
