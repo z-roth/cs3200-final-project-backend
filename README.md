@@ -1,4 +1,4 @@
-## CS3200 Final Project: Back End
+## CS3200 Database Design: Final Project Back End
 
 Welcome!
 
